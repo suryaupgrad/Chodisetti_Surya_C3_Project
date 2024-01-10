@@ -7,10 +7,13 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
-
+@ExtendWith(MockitoExtension.class)
 class RestaurantTest {
 
     //REFACTOR ALL THE REPEATED LINES OF CODE
@@ -36,17 +39,22 @@ class RestaurantTest {
     @Test
     public void is_restaurant_open_should_return_true_if_time_is_between_opening_and_closing_time(){
         //WRITE UNIT TEST CASE HERE
-
-
+        Restaurant rspy = Mockito.spy(restaurant);
+        when(rspy.getCurrentTime()).thenReturn(LocalTime.parse("10:30:01"));
+        assertTrue(rspy.isRestaurantOpen());
+        when(rspy.getCurrentTime()).thenReturn(LocalTime.parse("21:59:59"));
+        assertTrue(rspy.isRestaurantOpen());
     }
 
 
     @Test
     public void is_restaurant_open_should_return_false_if_time_is_outside_opening_and_closing_time(){
         //WRITE UNIT TEST CASE HERE
-//
-
-
+        Restaurant rspy = Mockito.spy(restaurant);
+        when(rspy.getCurrentTime()).thenReturn(LocalTime.parse("10:29:59"));
+        assertFalse(rspy.isRestaurantOpen());
+        when(rspy.getCurrentTime()).thenReturn(LocalTime.parse("22:00:00"));
+        assertFalse(rspy.isRestaurantOpen());
     }
 
     //<<<<<<<<<<<<<<<<<<<<<<<<<OPEN/CLOSED>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
