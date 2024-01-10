@@ -20,18 +20,21 @@ class RestaurantTest {
     Restaurant restaurant;
     LocalTime openingTime = LocalTime.parse("10:30:00");
     LocalTime closingTime= LocalTime.parse("22:00:00");
-
-
+    List<String> itemsprice;
 
     @BeforeEach
     public void setUp(){
         restaurant  = new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        itemsprice = new ArrayList<>();
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
+        itemsprice.add("Sweet corn soup");
+        itemsprice.add("Vegetable lasagne");
     }
     @AfterEach
     public void tear(){
         restaurant = null;
+        itemsprice = null;
     }
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -79,4 +82,14 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+    //<<<<<<<<<<<<<<<<<<<<<<<TDD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void order_value_should_be_displayed_for_selected_menu_itmes() {
+        assertEquals(388, restaurant.displayOrderValue(itemsprice));
+    }
+
+    //<<<<<<<<<<<<<<<<<<<<<<<TDD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 }

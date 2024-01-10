@@ -42,7 +42,6 @@ public class Restaurant {
         }
         return null;
     }
-
     public void addToMenu(String name, int price) {
         Item newItem = new Item(name,price);
         menu.add(newItem);
@@ -69,4 +68,20 @@ public class Restaurant {
         return name;
     }
 
+    //TDD Methods
+    private int findItemPriceByNme(String itemName){
+        for(Item item: menu) {
+            if(item.getName().equals(itemName))
+                return item.getPrice();
+        }
+        return 0;
+    }
+
+    public int displayOrderValue(List<String> selectedItem) {
+        int cost = 0;
+        for(String item : selectedItem){
+            cost += findItemPriceByNme(item);;
+        }
+        return cost;
+    }
 }
